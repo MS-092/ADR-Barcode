@@ -1,12 +1,16 @@
 from pathlib import Path
 from barcode import Code128
 from barcode.writer import ImageWriter
+from shared.constants import MAX_DATA_LENGTH
 
 def generate_barcode(data: str, out_path: str|Path) -> str:
     """
     Generate a Code128 barcode image for `data` and save to out_path (without extension).
     Returns the filename created (full path with extension).
     """
+    if len(data) > MAX_DATA_LENGTH:
+        raise ValueError(f"Input data is too long. Maximum length is {MAX_DATA_LENGTH} characters.")
+
     out_path = Path(out_path)
     # python-barcode will add extension; pass name without extension
     barcode_obj = Code128(data, writer=ImageWriter())
