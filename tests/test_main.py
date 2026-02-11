@@ -12,7 +12,7 @@ def test_cli_success():
     """Test the CLI runs successfully and creates a file."""
     output_file = "test_barcode.png"
     result = subprocess.run(
-        [".venv/bin/python", "-m", "app.main", "--data", "12345", "--out", output_file],
+        [sys.executable, "-m", "app.main", "--data", "12345", "--out", output_file],
         capture_output=True,
         text=True,
     )
@@ -28,7 +28,7 @@ def test_cli_long_data():
     """Test the CLI fails with data that is too long."""
     long_data = "a" * (MAX_DATA_LENGTH + 1)
     result = subprocess.run(
-        [".venv/bin/python", "-m", "app.main", "--data", long_data, "--out", "test_barcode"],
+        [sys.executable, "-m", "app.main", "--data", long_data, "--out", "test_barcode"],
         capture_output=True,
         text=True,
     )
@@ -39,7 +39,7 @@ def test_cli_long_data():
 def test_cli_no_data():
     """Test the CLI fails when no data is provided."""
     result = subprocess.run(
-        [".venv/bin/python", "-m", "app.main", "--out", "test_barcode"],
+        [sys.executable, "-m", "app.main", "--out", "test_barcode"],
         capture_output=True,
         text=True,
     )
